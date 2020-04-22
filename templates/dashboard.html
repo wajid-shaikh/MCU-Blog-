@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block body %}
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('         {{ url_for('static', filename='img/home-bg.jpg') }}       ')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Admin Panel</h1>
+              <span class="subheading">Manage your posts and change them</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10">
+            <h1>Basic Actions</h1>
+            <a href="/edit/0"><button class="btn btn-primary">Add a new post</button></a>
+            <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+
+            <hr>
+            <!-- <h1>Upload a File</h1>
+            <form action="/uploader" method="post" enctype="multipart/form-data">
+                <input type="file" name="file1">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form> -->
+            <!-- <hr> -->
+        <!-- Todo: fetch it using for loop from database -->
+        <h1>Edit Posts</h1>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Sr No.</th>
+                <th>Movie</th>
+                <th>Director</th>
+                <th>Budget</th>
+                <th>Collection</th>
+                <th>Information</th>
+                <th>Image</th>
+                <th>Actions</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for post in posts %}
+              {% set fname = 'img/' + post.image %}
+              <tr>
+                <td>{{post.id}}</td>
+                <td>{{post.movie_title}}</td>
+                <td>{{post.director_name}}</td>
+                <td>{{post.movie_budget}}</td>
+                <td>{{post.world_wide_collection}}</td>
+                <td>{{post.movie_info[0:23]}}...</td>
+                <td><img class="mb-4" src="{{ url_for('static', filename=fname) }}" alt="" width="72" height="72" style="border-radius: 50%;"></td>
+                <td><a href="/edit/{{post.id}}"><button class="btn btn-primary">Edit</button></a></td>
+                <td><a href="/delete/{{post.id}}"><button class="btn btn-primary">Delete</button></a></td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        <!-- Pager -->
+          
+        </div>
+      </div>
+    </div>
+    {% endblock %}
